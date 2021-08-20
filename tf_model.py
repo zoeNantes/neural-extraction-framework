@@ -68,3 +68,8 @@ def get_model(
     model = tf.keras.Model(inputs=[bet_ph, left_ph, right_ph], outputs=probabilities)
     model.compile(tf.train.AdagradOptimizer(0.1), "categorical_crossentropy")
     return model
+
+
+IS_TEST = os.environ.get("TRAVIS") == "true" or os.environ.get("IS_TEST") == "true"
+def get_n_epochs() -> int:
+    return 3 if IS_TEST else 30
